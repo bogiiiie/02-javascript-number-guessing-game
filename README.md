@@ -18,7 +18,7 @@ Crafted by **[Stephen William G. De Jesus](https://www.facebook.com/stephenwilli
 ---
 
 ## 🌐 Live Demo  
-[View Live Demo](https://yourusername.github.io/number-quest/) <!-- Replace with your actual live link -->
+[View Live Demo](https://bogiiiie.github.io/02-javascript-number-guessing-game/) <!-- Replace with your actual live link -->
 
 ---
 
