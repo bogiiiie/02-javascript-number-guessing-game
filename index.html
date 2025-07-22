@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number Quest | Stephen De Jesus</title>
+    <meta name="description"
+        content="Play an interactive number guessing game built by Stephen William G. De Jesus. Try to guess the number between 1 and 100 with limited lives." />
+    <meta name="author" content="Stephen William G. De Jesus" />
+    <link rel="stylesheet" href="output.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <div class="blur-overlay-wrapper hidden fixed w-full h-full bg-gray-500/60 backdrop-blur-xs z-50 top-0 left-0"></div>
+    <header role="banner"
+        class="site-header flex justify-center items-center shadow-sm fixed top-0 left-0 z-10 w-full bg-white">
+        <div class="wrapper w-full max-w-[1200px] flex flex-wrap justify-between items-center gap-5 py-4 px-6">
+            <div class="header-brand text-2xl text-indigo-600">
+                <i class="bi bi-question-diamond" aria-hidden="true"></i>
+                <span class="font-bold">Number Quest</span>
+            </div>
+            <nav class="header-controls flex justify-center items-center gap-4" aria-label="Game actions">
+                <button
+                    class="btn-help select-none text-lg text-gray-600 hover:text-indigo-600 active:text-indigo-600 transition cursor-pointer"
+                    onclick = "displayGameRules()"
+                    aria-label="Help">
+                    <i class="bi bi-question-circle-fill" aria-hidden="true"></i>
+                </button>
+                <button
+                    class="btn-restart select-none text-lg text-gray-600 hover:text-indigo-600 active:text-indigo-600 transition cursor-pointer"
+                    onclick="reset()"
+                    aria-label="Restart Game">
+                    <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main" class="main-content flex-1 flex flex-col justify-center items-center mt-16 w-full bg-gray-50">
+        <section id="game-section" class="game-section flex justify-center items-center" aria-labelledby="game-heading">
+            <div class="wrapper py-12 px-5 flex flex-col justify-center items-center gap-12">
+                <div class="game-intro space-y-3">
+                    <h2 id="game-heading" class="game-title text-4xl font-bold text-gray-800 text-center">Guess the
+                        Number!</h2>
+                    <p class="game-description text-lg font-medium text-gray-600 text-center">I'm thinking of a number
+                        between 1
+                        and 100. Can you guess it?</p>
+                </div>
+
+                <div id="game-card" class="game-card w-full max-w-2xl p-9 rounded-4xl bg-white shadow-xl flex flex-col justify-center items-center gap-7"
+                    role="region" aria-labelledby="guess-title">
+                    <header class="card-header flex flex-col justify-center items-center gap-2 text-center">
+                        <div class="card-icon text-4xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white flex justify-center items-center w-22 h-22 rounded-full"
+                            aria-hidden="true">
+                            <i class="fa-solid fa-brain animate-pulse"></i>
+                        </div>
+                        <h3 id="guess-title" class="card-title text-gray-800 text-2xl font-semibold">Make Your Guess
+                        </h3>
+                        <p class="card-instruction text-gray-600 font-semibold text-center">Enter a number and see if
+                            you can guess
+                            correctly!</p>
+                    </header>
+
+                    <div class="lives-container bg-gradient-to-r from-red-500 to-yellow-500 text-white text-lg font-semibold flex justify-center items-center gap-2 py-2 px-5 rounded-3xl text-center flex-wrap"
+                        aria-live="polite">
+                        <i class="bi bi-heart-fill animate-pulse" aria-hidden="true"></i>
+                        <p class="lives">
+                            <span class="lives-label">Lives:</span>
+                            <span class="lives-value">10</span>
+                        </p>
+                    </div>
+
+                    <form id="guess-form" class="guess-form flex flex-col justify-center items-center w-full gap-5"
+                        aria-label="Guess form" action="#">
+                        <label for="guess-input" class="hidden">Enter your guess</label>
+                        <input type="number" id="guess-input" name="guess"
+                            class="guess-input text-xl w-full font-medium text-center text-gray-800 ring-2 ring-gray-300 py-3.5 px-2 rounded-xl focus:ring-indigo-500 focus:outline-none transition duration-200"
+                            placeholder="Enter your guess (1–100)" aria-required="true" min="1" max="100" />
+                        <button type="submit"
+                        id="guess-btn"
+                            class="guess-btn select-none text-lg font-semibold space-x-1 bg-gradient-to-r from-indigo-500 to-violet-600 text-white px-2 py-3.5 w-full rounded-xl cursor-pointer relative transition hover:-translate-y-1 hover:shadow-lg active:scale-95 flex-wrap"
+                            aria-label="Submit your guess">
+                            <i class="bi bi-send-fill" aria-hidden="true"></i>
+                            <span>Submit Guess</span>
+                        </button>
+                    </form>
+
+                    <div id="guess-history" class="hidden guess-history text-center space-y-4" role="region"
+                        aria-labelledby="guess-history-title">
+                        <h4 id="guess-history-title" class="guess-history-title text-xl font-semibold text-gray-800">
+                            Your Guesses
+                        </h4>
+
+                        <ul 
+                            id="guess-history-list"
+                            class="guess-history-list space-y-2 flex flex-wrap justify-center content-center items-stretch  gap-2.5">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo"
+        class="site-footer w-full flex justify-center items-center bg-indigo-700 text-white text-center text-sm">
+        <div class="wrapper w-full max-w-[1200px] flex max-sm:flex-col justify-between items-center gap-1 py-4 px-6">
+            <p class="footer-text font-medium">
+                &copy; <span id="year"></span> All rights reserved. Created by
+                <a href="https://www.facebook.com/stephenwilliam.dejesus.5/" class="footer-author active:text-indigo-950 hover:text-indigo-950 underline transition"
+                    rel="author">Stephen
+                    William G. De Jesus</a>
+            </p>
+            <hr>
+            <nav class="social-nav" aria-label="Social links">
+                <ul class="social-links flex justify-center items-center gap-4 text-lg">
+                    <li class="hover:text-indigo-950 active:text-indigo-950"><a href="https://github.com/bogiiiie" aria-label="GitHub"><i
+                                class="bi bi-github" aria-hidden="true"></i></a></li>
+                    <li class="hover:text-indigo-950 active:text-indigo-950"><a href="https://www.facebook.com/stephenwilliam.dejesus.5/" aria-label="Facebook"><i
+                                class="bi bi-facebook" aria-hidden="true"></i></a></li>
+                    <li class="hover:text-indigo-950 active:text-indigo-950"><a href="https://www.instagram.com/stephenwilliamdejesus/" aria-label="Instagram"><i
+                                class="bi bi-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
