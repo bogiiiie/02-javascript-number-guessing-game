@@ -58,7 +58,7 @@ Crafted by **[Stephen William G. De Jesus](https://www.facebook.com/stephenwilli
 ## 🚀 Getting Started
 
 To run this project locally:
-1. git clone https://github.com/yourusername/number-quest.git
+1. git clone https://github.com/yourusername/https://bogiiiie.github.io/10-javascript-number-guessing-game.git
 2. cd number-quest
 3. open index.html
 
